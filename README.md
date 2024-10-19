@@ -60,7 +60,7 @@ GESTIONINVENTARIO
 │   ├── ubicaciones/
 │   └── usuarios/
 │
-├── uploads/                  # Directorio para archivos subidos
+├── uploads/                  # Directorio para archivos subidos (no incluida)
 ├── .env                      # Archivo de variables de entorno
 ├── app.js                    # Configuración principal del servidor
 └── package.json              # Información de dependencias
