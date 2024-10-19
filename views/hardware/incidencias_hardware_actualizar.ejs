@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Incidencia Hardware</title>
+    <link rel="stylesheet" href="/css/actualizar.css">
+</head>
+<body>
+    <h1>Actualizar Incidencia Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/incidencias_hardware/actualizar/<%= incidencia.id_incidencia %>" method="POST">
+        <label for="descripcion_incidencia">Descripción:</label>
+        <input type="text" name="descripcion_incidencia" value="<%= incidencia.descripcion_incidencia %>" required>
+
+        <label for="fecha_reporte">Fecha de Reporte:</label>
+        <input type="datetime-local" name="fecha_reporte" value="<%= incidencia.fecha_reporte %>" required>
+
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="">Seleccione un Tipo de Estado</option>
+            <option value="abierta" <%= incidencia.estado === 'abierta' ? 'selected' : '' %>>Abierta</option>
+            <option value="en progreso" <%= incidencia.estado === 'en progreso' ? 'selected' : '' %>>En Progreso</option>
+            <option value="cerrada" <%= incidencia.estado === 'cerrada' ? 'selected' : '' %>>Cerrada</option>
+            <option value="cancelada" <%= incidencia.estado === 'cancelada' ? 'selected' : '' %>>Cancelada</option>
+        </select>
+
+        <label for="prioridad">Prioridad:</label>
+        <select name="prioridad" required>
+            <option value="">Seleccione un Tipo de Prioridad</option>
+            <option value="baja" <%= incidencia.prioridad === 'baja' ? 'selected' : '' %>>Baja</option>
+            <option value="media" <%= incidencia.prioridad === 'media' ? 'selected' : '' %>>Media</option>
+            <option value="alta" <%= incidencia.prioridad === 'alta' ? 'selected' : '' %>>Alta</option>
+        </select>
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" id="id_ubicacion" required onchange="cargarHardwarePorUbicacion(this.value)">
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>" <%= ubicacion.id_ubicacion === incidencia.id_ubicacion ? 'selected' : '' %>><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_hardware">Hardware:</label>
+        <select name="id_hardware" id="id_hardware" required>
+            <option value="">Seleccione un hardware</option>
+            <% hardware.forEach(hw => { %>
+                <option value="<%= hw.id_hardware %>" <%= hw.id_hardware === incidencia.id_hardware ? 'selected' : '' %>><%= hw.marca %> - <%= hw.modelo %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_usuario">Usuario:</label>
+        <select name="id_usuario" required>
+            <% usuarios.forEach(usuario => { %>
+                <option value="<%= usuario.id %>" <%= usuario.id === incidencia.id_usuario ? 'selected' : '' %>><%= usuario.username %></option>
+            <% }) %>
+        </select>
+
+        <button type="submit">Actualizar Incidencia</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+
+    <script>
+        function cargarHardwarePorUbicacion(idUbicacion) {
+            const hardwareSelect = document.getElementById('id_hardware');
+            hardwareSelect.innerHTML = '';
+
+            fetch(`/hardware/ubicacion/${idUbicacion}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(hw => {
+                        const option = document.createElement('option');
+                        option.value = hw.id_hardware;
+                        option.textContent = `${hw.marca} - ${hw.modelo}`;
+                        hardwareSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

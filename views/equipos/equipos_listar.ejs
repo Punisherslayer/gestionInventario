@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Equipos</title>
+    <link rel="stylesheet" href="/css/listar.css">
+
+    <style>
+/* Estilos para el formulario */
+.formcsv {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.formcsv label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+.formcsv input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+}
+
+.formcsv button {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    width: 100%;
+    transition: background-color 0.3s ease;
+}
+
+.formcsv button:hover {
+    background-color: #0056b3;
+}
+
+.formcsv button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(38, 143, 255, 0.5);
+}
+</style>
+</head>
+<body>
+    <h1>Lista de Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <!-- Filtros -->
+    <form action="/equipos/listar" method="GET">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo">
+            <option value="">Seleccione un Tipo de Equipo</option>
+            <option value="PC">PC</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Impresora">Impresora</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca" placeholder="Marca">
+
+        <label for="sistema_operativo">Sistema Operativo:</label>
+        <select name="sistema_operativo">
+            <option value="">Seleccione un sistema operativo</option>
+            <option value="Windows">Windows</option>
+            <option value="Linux">Linux</option>
+            <option value="macOS">macOS</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label for="ubicacion">Ubicación:</label>
+        <select name="ubicacion">
+            <option value="">Seleccione una Ubicación</option>
+            
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }); %>
+        </select>
+
+        <label for="fecha_creacion">Fecha Creación (desde):</label>
+        <input type="date" name="fecha_creacion_desde">
+
+        <label for="fecha_modificacion">Fecha Modificación (hasta):</label>
+        <input type="date" name="fecha_modificacion_hasta">
+
+        <button type="submit">Filtrar</button>
+    </form>
+    
+    <!-- Tabla de equipos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Sistema Operativo</th>
+                <th>Placa Base</th>
+                <th>Procesador</th>
+                <th>Memoria RAM</th>
+                <th>Disco Duro</th>
+                <th>Tarjeta Gráfica</th>
+                <th>Cables/Conectores</th>
+                <th>Sistema de Refrigeración</th>
+                <th>Unidad Óptica</th>
+                <th>Tarjeta de Sonido</th>
+                <th>Tarjeta de Red</th>
+                <th>Teclado</th>
+                <th>Ratón</th>
+                <th>Monitor</th>
+                <th>Altavoces</th>
+                <th>Ubicación</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Fecha Modificación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% equipos.forEach(function(equipo) { %>
+            <tr>
+                <td><%= equipo.id_equipo %></td>
+                <td><%= equipo.tipo %></td>
+                <td><%= equipo.marca %></td>
+                <td><%= equipo.modelo %></td>
+                <td><%= equipo.sistema_operativo %></td>
+                <td><%= equipo.placa_base %></td>
+                <td><%= equipo.procesador %></td>
+                <td><%= equipo.memoria_ram %></td>
+                <td><%= equipo.disco_duro %></td>
+                <td><%= equipo.tarjeta_grafica %></td>
+                <td><%= equipo.cables_conectores %></td>
+                <td><%= equipo.sistema_refrigeracion %></td>
+                <td><%= equipo.unidad_optica %></td>
+                <td><%= equipo.tarjeta_sonido %></td>
+                <td><%= equipo.tarjeta_red %></td>
+                <td><%= equipo.teclado %></td>
+                <td><%= equipo.raton %></td>
+                <td><%= equipo.monitor %></td>
+                <td><%= equipo.altavoces %></td>
+                <td><%= equipo.nombre_ubicacion %></td>
+                <td><%= equipo.estado %></td>
+                <td><%= new Date(equipo.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(equipo.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>                
+                <td>
+                    <form action="/equipos/eliminar/<%= equipo.id_equipo %>" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a href="/equipos/actualizar/<%= equipo.id_equipo %>"><button>Actualizar Equipo</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    
+    <button class="button-rdc" onclick="window.location.href='/equipos/alta'">Dar de Alta Equipo</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Volver a Lista de Ubicaciones</button>
+
+        <!-- Botón para cargar archivo Excel/CSV -->
+        <form class="formcsv" action="/equipos/upload" method="POST" enctype="multipart/form-data">
+            <label for="file">Subir archivo de Equipos (Excel/CSV):</label>
+            <input type="file" name="file" accept=".csv, .xlsx" required>
+            <button type="submit">Subir</button>
+        </form>
+    
+    <% if (messages.success) { %>
+        <script>
+            alert('<%= messages.success %>');
+        </script>
+    <% } %>
+
+</body>
+</html>

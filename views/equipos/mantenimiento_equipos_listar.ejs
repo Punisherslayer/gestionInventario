@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Mantenimientos de Equipos</title>
+    <link rel="stylesheet" href="/css/listar.css">
+</head>
+<body>
+    <h1>Lista de Mantenimiento de Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+
+    <!-- Filtros -->
+    <form method="GET" action="/mantenimiento_equipos/listar">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" id="tipo">
+            <option value="">Seleccione Tipo</option>
+            <option value="preventivo">Preventivo</option>
+            <option value="correctivo">Correctivo</option>
+        </select>
+
+        <label for="fecha_mantenimiento">Fecha Mantenimiento:</label>
+        <input type="date" name="fecha_mantenimiento" id="fecha_mantenimiento">
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" id="id_ubicacion">
+            <option value="">Seleccione Ubicación</option>
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="estado">Estado:</label>
+        <select name="estado" id="estado">
+            <option value="">Seleccione Estado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="completado">Completado</option>
+            <option value="cancelado">Cancelado</option>
+        </select>
+
+        <label for="fecha_creacion">Fecha Creación:</label>
+        <input type="date" name="fecha_creacion" id="fecha_creacion">
+
+        <label for="fecha_modificacion">Fecha Modificación:</label>
+        <input type="date" name="fecha_modificacion" id="fecha_modificacion">
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabla Mantenimiento Equipos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Descripción Mantenimiento</th>
+                <th>Descripción Incidencia</th>
+                <th>Fecha Mantenimiento</th>
+                <th>Equipo</th>
+                <th>Usuario</th>
+                <th>Ubicación</th>
+                <th>Estado</th>
+                <th>Fecha Creación</th>
+                <th>Fecha Modificación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% mantenimiento.forEach(function(mtto) { %>
+            <tr>
+                <td><%= mtto.id_mantenimiento %></td>
+                <td><%= mtto.tipo %></td>
+                <td><%= mtto.descripcion_mantenimiento %></td>
+                <td><%= mtto.descripcion_incidencia %></td>
+                <td><%= new Date(mtto.fecha_mantenimiento).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= mtto.nombre_equipo %></td>
+                <td><%= mtto.nombre_usuario %></td>
+                <td><%= mtto.nombre_ubicacion %></td>
+                <td><%= mtto.estado %></td>
+                <td><%= new Date(mtto.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(mtto.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>                
+                <td>
+                    <form action="/mantenimiento_equipos/eliminar/<%= mtto.id_mantenimiento %>" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a href="/mantenimiento_equipos/actualizar/<%= mtto.id_mantenimiento %>"><button>Actualizar</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <button class="button-rdc" onclick="window.location.href='/incidencias_equipos/listar'">Ir a la Lista de Incidencias Equipos</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Volver a Lista de Ubicaciones</button>
+
+    <% if (messages.success) { %>
+        <script>
+            alert('<%= messages.success %>');
+        </script>
+    <% } %>
+</body>
+</html>

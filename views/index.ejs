@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestión de Inventario</title>
+    <link rel="stylesheet" href="/css/index.css">
+</head>
+<body>
+    <header>
+        <h1>Bienvenido TIC, <%= user.username %></h1>
+
+        <% if (messages.error_msg) { %> 
+            <div class="alert alert-danger"><%= messages.error_msg %></div>
+        <% } %>
+        <% if (messages.success_msg) { %> 
+            <div class="alert alert-success"><%= messages.success_msg %></div>
+        <% } %>
+        
+        <nav>
+            <a href="/logout">Cerrar sesión</a>
+        </nav>
+    </header>
+    <main>        
+        <section id="ubicacionesSection">
+            <h3>Ubicaciones</h3>
+            <button onclick="toggleDropdown('ubicacionesDropdown', 'ubicacionesSection')">Opciones</button>
+            <div id="ubicacionesDropdown" class="dropdown-content">
+                <img src="/img/ubicaciones.jpg" alt="Ubicaciones" style="width:50%; height:auto;">
+                <a href="/ubicaciones/listar">Lista de Ubicaciones</a>
+            </div>
+        </section>
+        <section id="usuariosSection">
+            <h3>Usuarios</h3>
+            <button onclick="toggleDropdown('usuariosDropdown', 'usuariosSection')">Opciones</button>
+            <div id="usuariosDropdown" class="dropdown-content">
+                <img src="/img/usuarios.jpg" alt="Usuarios" style="width:50%; height:auto;">
+                <a href="/usuarios/listar">Lista de Usuarios</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        function toggleDropdown(dropdownId, sectionId) {
+            // Cerrar todos los dropdowns
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                dropdown.style.display = 'none';
+            });
+        
+            // Alternar el estado del dropdown seleccionado
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+        
+            // Cerrar todas las demás secciones y hacerlas transparentes
+            const sections = document.querySelectorAll('section');
+            sections.forEach(section => {
+                if (section.id !== sectionId) {
+                    section.classList.add('inactive');
+                }
+            });
+        
+            // Expandir la sección activa
+            const section = document.getElementById(sectionId);
+            if (dropdown.style.display === 'block') {
+                section.classList.add('active');
+                document.body.classList.add('dimmed');
+                section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            } else {
+                section.classList.remove('active');
+                document.body.classList.remove('dimmed');
+                sections.forEach(section => {
+                    section.classList.remove('inactive');
+                });
+            }
+        }
+    
+        // Cerrar el dropdown al hacer clic fuera de él
+        document.addEventListener('click', function(event) {
+            const dropdowns = document.querySelectorAll('.dropdown-content');
+            dropdowns.forEach(dropdown => {
+                if (dropdown.style.display === 'block') {
+                    const section = dropdown.parentElement;
+                    if (!section.contains(event.target)) {
+                        dropdown.style.display = 'none';
+                        section.classList.remove('active');
+                        document.body.classList.remove('dimmed');
+                        // Restaurar visibilidad de secciones
+                        const sections = document.querySelectorAll('section');
+                        sections.forEach(section => {
+                            section.classList.remove('inactive');
+                        });
+                    }
+                }
+            });
+        });
+
+            // Duración de la sesión en milisegundos (por ejemplo, 30 minutos)
+    const sessionDuration = 30 * 60 * 1000;
+    
+    // Temporizador de cuenta regresiva para mostrar el tiempo restante
+    let countdown = sessionDuration / 1000; // Convertir a segundos
+
+    const interval = setInterval(() => {
+        countdown--;
+
+        // Si la cuenta regresiva llega a 0, puedes mostrar un mensaje o redirigir al login
+        if (countdown <= 0) {
+            clearInterval(interval);
+            alert('Tu sesión ha expirado. Serás redirigido a la página de inicio de sesión.');
+            window.location.href = '/logup'; // Redirigir al login
+        }
+    }, 1000); // Actualizar cada segundo
+    
+    </script>
+    
+</body>
+</html>

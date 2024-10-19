@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Hardware</title>
+    <link rel="stylesheet" href="/css/listar.css">
+</head>
+<body>
+    <h1>Lista de Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <!-- Filtros -->
+    <form action="/hardware/listar" method="GET">
+        <label for="tipo_componente">Tipo:</label>
+        <select name="tipo_componente">
+            <option value="">Seleccione un Tipo</option>
+            <option value="Procesador">Procesador</option>
+            <option value="RAM">RAM</option>
+            <option value="Disco_Duro">Disco Duro</option>
+            <option value="Tarjeta_Grafica">Tarjeta Gráfica</option>
+            <option value="Fuente_Alimentacion">Fuente de Alimentación</option>
+            <option value="Otro">Otro</option>
+        </select>
+        
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca" placeholder="Marca">
+        
+        <label for="estado">Estado:</label>
+        <select name="estado">
+            <option value="">Seleccione un Estado</option>
+            <option value="disponible">Disponible</option>
+            <option value="en uso">En uso</option>
+            <option value="en reparación">En reparación</option>
+            <option value="desechado">Desechado</option>
+        </select>
+        
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion">
+            <option value="">Seleccione una Ubicación</option>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }); %>
+        </select>
+
+        <label for="fecha_creacion">Fecha Creación:</label>
+        <input type="date" name="fecha_creacion">
+
+        <label for="fecha_modificacion">Fecha Modificación:</label>
+        <input type="date" name="fecha_modificacion">
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabla de Hardware -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Tipo</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Especificaciones</th>
+                <th>Estado</th>
+                <th>Ubicación</th>
+                <th>Fecha Creación</th>
+                <th>Fecha Modificación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% hardware.forEach(function(hw) { %>
+            <tr>
+                <td><%= hw.id_hardware %></td>
+                <td><%= hw.tipo_componente %></td>
+                <td><%= hw.marca %></td>
+                <td><%= hw.modelo %></td>
+                <td><%= hw.especificaciones %></td>
+                <td><%= hw.estado %></td>
+                <td><%= hw.nombre_ubicacion %></td>
+                <td><%= new Date(hw.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(hw.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td>
+                    <form action="/hardware/eliminar/<%= hw.id_hardware %>" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a href="/hardware/actualizar/<%= hw.id_hardware %>"><button>Actualizar Hardware</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <button class="button-rdc" onclick="window.location.href='/hardware/alta'">Dar de Alta Hardware</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Volver a Lista de Ubicaciones</button>
+</body>
+</html>

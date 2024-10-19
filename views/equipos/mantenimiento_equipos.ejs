@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Mantenimiento Equipos</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Mantenimiento Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/mantenimiento_equipos/alta" method="POST">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" required>
+            <option value="">Seleccione un Tipo de Mantenimiento</option>
+            <option value="preventivo">Preventivo</option>
+            <option value="correctivo">Correctivo</option>
+        </select>
+        
+        <label for="descripcion_mantenimiento">Descripción:</label>
+        <textarea name="descripcion_mantenimiento" required></textarea>
+        
+        <label for="fecha_mantenimiento">Fecha:</label>
+        <input type="datetime-local" name="fecha_mantenimiento" required>
+        
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" id="id_ubicacion" required onchange="cargarEquiposPorUbicacion(this.value)">
+            <option value="">Seleccione una Ubicación</option>
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_equipo">Equipo:</label>
+        <select name="id_equipo" id="id_equipo" required>
+            <option value="">Seleccione un equipo</option>
+        </select>
+        
+        <label for="id_usuario">Usuario:</label>
+        <select name="id_usuario" required>
+            <% usuarios.forEach(usuario => { %>
+                <option value="<%= usuario.id %>"><%= usuario.username %></option>
+            <% }) %>
+        </select>
+
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="">Seleccione el Estado del Mantenimiento</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="completado">Completado</option>
+            <option value="cancelado">Cancelado</option>
+        </select>
+        
+        <button type="submit">Registrar Mantenimiento</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+    <script>
+        function cargarEquiposPorUbicacion(idUbicacion) {
+            const equipoSelect = document.getElementById('id_equipo');
+            equipoSelect.innerHTML = '';
+
+            fetch(`/equipos/ubicacion/${idUbicacion}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(equipo => {
+                        const option = document.createElement('option');
+                        option.value = equipo.id_equipo;
+                        option.textContent = `${equipo.marca} - ${equipo.modelo}`;
+                        equipoSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const equipoId = urlParams.get('equipo');
+            const ubicacionId = urlParams.get('ubicacion');
+            
+            if (equipoId) {
+                document.getElementById('id_equipo').value = equipoId;
+            }
+            if (ubicacionId) {
+                document.getElementById('id_ubicacion').value = ubicacionId;
+                cargarEquiposPorUbicacion(ubicacionId);
+            }
+        };
+    </script>
+</body>
+</html>

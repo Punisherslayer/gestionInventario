@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Software</title>
+    <link rel="stylesheet" href="/css/actualizar.css">
+</head>
+<body>
+    <h1>Actualizar Software</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/software/actualizar/<%= software.id_software %>" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" value="<%= software.nombre %>" required>
+    
+        <label for="version">Versión:</label>
+        <input type="text" name="version" value="<%= software.version %>">
+    
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input type="date" name="fecha_vencimiento" value="<%= software.fecha_vencimiento %>">
+    
+        <label for="detalles_licencia">Detalles de la Licencia:</label>
+        <input type="text" name="detalles_licencia" value="<%= software.detalles_licencia %>">
+    
+        <button type="submit">Actualizar Software</button>
+        <button type="button" class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

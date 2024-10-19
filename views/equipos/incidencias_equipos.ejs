@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Incidencia Equipos</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Incidencia Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/incidencias_equipos/alta" method="POST">
+        <label for="descripcion_incidencia">Descripción:</label>
+        <textarea name="descripcion_incidencia" required></textarea>
+        
+        <label for="fecha_reporte">Fecha de Reporte:</label>
+        <input type="datetime-local" name="fecha_reporte" required>
+        
+        <label for="estado">Estado:</label>
+        <select name="estado">
+            <option value="">Seleccione el Estado de la Incidencia</option>
+            <option value="abierta">Abierta</option>
+            <option value="en progreso">En Progreso</option>
+            <option value="cerrada">Cerrada</option>
+            <option value="cancelada">Cancelada</option>
+        </select>
+        
+        <label for="prioridad">Prioridad:</label>
+        <select name="prioridad">
+            <option value="">Seleccione el Tipo de Prioridad</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+        </select>
+        
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" id="id_ubicacion" required onchange="cargarEquiposPorUbicacion(this.value)">
+            <option value="">Seleccione una Ubicación</option>
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_equipo">Equipo:</label>
+        <select name="id_equipo" id="id_equipo" required>
+            <option value="">Seleccione un equipo</option>
+        </select>
+        
+        <label for="id_usuario">Usuario:</label>
+        <select name="id_usuario" required>
+            <% usuarios.forEach(usuario => { %>
+                <option value="<%= usuario.id %>"><%= usuario.username %></option>
+            <% }) %>
+        </select>
+        
+        <button type="submit">Registrar Incidencia</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+    <script>
+        function cargarEquiposPorUbicacion(idUbicacion) {
+            const equipoSelect = document.getElementById('id_equipo');
+            equipoSelect.innerHTML = '';
+
+            fetch(`/equipos/ubicacion/${idUbicacion}`)
+                .then(response => response.json())
+                .then(data => {
+                    data.forEach(equipo => {
+                        const option = document.createElement('option');
+                        option.value = equipo.id_equipo;
+                        option.textContent = `${equipo.marca} - ${equipo.modelo}`;
+                        equipoSelect.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dar de Alta Equipos</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/equipos/alta" method="POST">
+        <label for="tipo">Tipo:</label>
+        <select name="tipo" required>
+            <option value="">Seleccione un Tipo de Equipo</option>
+            <option value="PC">PC</option>
+            <option value="Laptop">Laptop</option>
+            <option value="Impresora">Impresora</option>
+            <option value="Otro">Otro</option>
+        </select>
+        
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca">
+        
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo">
+
+        <label for="sistema_operativo">Sistema Operativo:</label>
+        <select name="sistema_operativo" required>
+            <option value="">Seleccione un sistema operativo</option>
+            <option value="Windows">Windows</option>
+            <option value="Linux">Linux</option>
+            <option value="macOS">macOS</option>
+            <option value="Otro">Otro</option>
+        </select>
+
+        <label for="placa_base">Placa Base:</label>
+        <input type="text" name="placa_base">
+
+        <label for="procesador">Procesador:</label>
+        <input type="text" name="procesador">
+
+        <label for="memoria_ram">Memoria RAM:</label>
+        <input type="text" name="memoria_ram">
+
+        <label for="disco_duro">Disco Duro:</label>
+        <input type="text" name="disco_duro">
+
+        <label for="tarjeta_grafica">Tarjeta Gráfica:</label>
+        <input type="text" name="tarjeta_grafica">
+
+        <label for="cables_conectores">Cables/Conectores:</label>
+        <input type="text" name="cables_conectores">
+
+        <label for="sistema_refrigeracion">¿Sistema de Refrigeración?</label>
+        <select name="sistema_refrigeracion" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="unidad_optica">¿Unidad Óptica?</label>
+        <select name="unidad_optica" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="tarjeta_sonido">¿Tarjeta de Sonido?</label>
+        <select name="tarjeta_sonido" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="tarjeta_red">¿Tarjeta de Red?</label>
+        <select name="tarjeta_red" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="teclado">¿Teclado?</label>
+        <select name="teclado" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="raton">¿Ratón?</label>
+        <select name="raton" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="monitor">¿Monitor?</label>
+        <select name="monitor" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+        
+        <label for="altavoces">¿Altavoces?</label>
+        <select name="altavoces" required>
+            <option value="si">Sí</option>
+            <option value="no">No</option>
+        </select>
+
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="">Seleccione el Estado del Equipo</option>
+            <option value="activo">Activo</option>
+            <option value="en reparación">En reparación</option>
+            <option value="obsoleto">Obsoleto</option>
+        </select>
+                
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" required>
+            <option value="">Seleccione una Ubicación</option>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }); %>
+        </select>
+        
+        <button type="submit">Registrar Equipo</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

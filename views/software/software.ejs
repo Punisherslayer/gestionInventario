@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dar de Alta Software</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Software</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/software/alta" method="POST">
+        <label for="nombre">Nombre:</label>
+        <input type="text" name="nombre" required>
+        <br>
+        <label for="version">Versión:</label>
+        <input type="text" name="version" >
+        <br>
+        <label for="fecha_vencimiento">Fecha de Vencimiento:</label>
+        <input type="date" name="fecha_vencimiento">
+        <br>
+        <label for="detalles_licencia">Detalles de Licencia:</label>
+        <input type="text" name="detalles_licencia">
+        <br>
+        <button type="submit">Registrar Software</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

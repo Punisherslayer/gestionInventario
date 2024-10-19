@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Mantenimiento de Hardware</title>
+    <link rel="stylesheet" href="/css/actualizar.css">
+</head>
+<body>
+    <h1>Actualizar Mantenimiento de Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+
+    <form action="/mantenimiento_hardware/actualizar/<%= mantenimiento.id_mantenimiento %>" method="POST">
+        <label for="tipo">Tipo de Mantenimiento:</label>
+        <select name="tipo" required>
+            <option value="">Seleccione un Tipo de Mantenimiento</option>
+            <option value="preventivo" <%= mantenimiento.tipo === 'preventivo' ? 'selected' : '' %>>Preventivo</option>
+            <option value="correctivo" <%= mantenimiento.tipo === 'correctivo' ? 'selected' : '' %>>Correctivo</option>
+        </select>
+
+        <label for="descripcion_mantenimiento">Descripción:</label>
+        <input type="text" name="descripcion_mantenimiento" value="<%= mantenimiento.descripcion_mantenimiento %>" required>
+
+        <label for="fecha_mantenimiento">Fecha:</label>
+        <input type="datetime-local" name="fecha_mantenimiento" value="<%= mantenimiento.fecha_mantenimiento %>" required>
+
+        <label for="id_hardware">Hardware:</label>
+        <select name="id_hardware" required>
+            <% hardware.forEach(hw => { %>
+                <option value="<%= hw.id_hardware %>" <%= hw.id_hardware === mantenimiento.id_hardware ? 'selected' : '' %>><%= hw.marca %> - <%= hw.modelo %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_usuario">Usuario:</label>
+        <select name="id_usuario" required>
+            <% usuarios.forEach(usuario => { %>
+                <option value="<%= usuario.id %>" <%= usuario.id === mantenimiento.id_usuario ? 'selected' : '' %>><%= usuario.username %></option>
+            <% }) %>
+        </select>
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" required>
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>" <%= ubicacion.id_ubicacion === mantenimiento.id_ubicacion ? 'selected' : '' %>><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="">Seleccione un Tipo de Estado</option>
+            <option value="pendiente" <%= mantenimiento.estado === 'pendiente' ? 'selected' : '' %>>Pendiente</option>
+            <option value="completado" <%= mantenimiento.estado === 'completado' ? 'selected' : '' %>>Completado</option>
+            <option value="cancelado" <%= mantenimiento.estado === 'cancelado' ? 'selected' : '' %>>Cancelado</option>
+        </select>
+
+        <button type="submit">Actualizar Mantenimiento</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

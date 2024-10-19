@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Usuarios</title>
+    <link rel="stylesheet" href="/css/listar.css">
+</head>
+<body>
+    <h1>Lista de Usuarios</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Fecha de Creación</th>
+                <th>Fecha de Modificación</th>
+                <th>Fecha Último Acceso</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% usuarios.forEach(function(usuario) { %>
+            <tr>
+                <td><%= usuario.id %></td>
+                <td><%= usuario.username %></td>
+                <td><%= usuario.email %></td>
+                <td><%= usuario.rol %></td>
+                <td><%= new Date(usuario.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(usuario.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(usuario.fecha_ultimo_acceso).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>                
+                <td>
+                    <form action="/usuarios/eliminar/<%= usuario.id %>" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a href="/usuarios/actualizar/<%= usuario.id %>"><button>Actualizar</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+    <button class="button-rdc" onclick="window.location.href='/usuarios/alta'">Dar de Alta Usuarios</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Ver Lista de Ubicaciones</button>
+    <button class="button-rdc" onclick="window.location.href='/index'">Volver a la Página Principal</button>
+</body>
+</html>

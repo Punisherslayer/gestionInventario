@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Hardware</title>
+    <link rel="stylesheet" href="/css/actualizar.css">
+</head>
+<body>
+    <h1>Actualizar Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/hardware/actualizar/<%= hardware.id_hardware %>" method="POST">
+        <label for="tipo_componente">Tipo de Componente:</label>
+        <select name="tipo_componente" required>
+            <option value="">Seleccione un Tipo de Componente</option>
+            <option value="Procesador" <%= hardware.tipo_componente === 'Procesador' ? 'selected' : '' %>>Procesador</option>
+            <option value="RAM" <%= hardware.tipo_componente === 'RAM' ? 'selected' : '' %>>RAM</option>
+            <option value="Disco_Duro" <%= hardware.tipo_componente === 'Disco_Duro' ? 'selected' : '' %>>Disco Duro</option>
+            <option value="Tarjeta_Grafica" <%= hardware.tipo_componente === 'Tarjeta_Grafica' ? 'selected' : '' %>>Tarjeta Gráfica</option>
+            <option value="Fuente_Alimentacion" <%= hardware.tipo_componente === 'Fuente_Alimentacion' ? 'selected' : '' %>>Fuente de Alimentación</option>
+            <option value="Otro" <%= hardware.tipo_componente === 'Otro' ? 'selected' : '' %>>Otro</option>
+        </select>
+
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca" value="<%= hardware.marca %>" >
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo" value="<%= hardware.modelo %>" >
+
+        <label for="especificaciones">Especificaciones:</label>
+        <input type="text" name="especificaciones" value="<%= hardware.especificaciones %>">
+
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="disponible" <%= hardware.estado === 'disponible' ? 'selected' : '' %>>Disponible</option>
+            <option value="en uso" <%= hardware.estado === 'en uso' ? 'selected' : '' %>>En uso</option>
+            <option value="en reparación" <%= hardware.estado === 'en reparación' ? 'selected' : '' %>>En reparación</option>
+            <option value="desechado" <%= hardware.estado === 'desechado' ? 'selected' : '' %>>Desechado</option>
+        </select>
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" required>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>" <%= ubicacion.id_ubicacion === hardware.id_ubicacion ? 'selected' : '' %>><%= ubicacion.nombre_ubicacion %></option>
+            <% }); %>
+        </select>
+
+        <button type="submit">Actualizar Hardware</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

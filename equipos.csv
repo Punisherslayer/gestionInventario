@@ -1,0 +1,82 @@
+tipo,marca,modelo,sistema_operativo,placa_base,procesador,memoria_ram,disco_duro,tarjeta_grafica,sistema_refrigeracion,unidad_optica,tarjeta_sonido,tarjeta_red,teclado,raton,monitor,altavoces,cables_conectores,id_ubicacion,estado
+PC,Dell,Optiplex 5070,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,HP,ProDesk 400 G5,macOS,Intel B360,Intel i5-8600,8GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable HDMI,1,activo
+PC,Acer,Veriton X,Windows,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable VGA,1,activo
+PC,Lenovo,ThinkCentre M710,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,Asus,ASPIRE XC,Linux,Intel H310,Intel i5-9600,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,1,activo
+PC,Dell,Optiplex 3080,Windows,Intel H410,Intel i5-10400,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,HP,EliteDesk 800,Windows,Intel B360,Intel i5-9600,16GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,Acer,Veriton,Linux,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable HDMI,1,activo
+PC,Lenovo,ThinkCentre,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,Asus,ASPIRE XC,macOS,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,1,activo
+PC,Dell,Optiplex 5070,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,HP,ProDesk 400 G5,Windows,Intel B360,Intel i5-8600,8GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable HDMI,2,activo
+PC,Acer,Veriton X,Linux,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable VGA,2,activo
+PC,Lenovo,ThinkCentre M710,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,Asus,ASPIRE XC,Windows,Intel H310,Intel i5-9600,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,2,activo
+PC,Dell,Optiplex 3080,Windows,Intel H410,Intel i5-10400,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,HP,EliteDesk 800,Windows,Intel B360,Intel i5-9600,16GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,Acer,Veriton,Linux,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable HDMI,2,activo
+PC,Lenovo,ThinkCentre,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,Asus,ASPIRE XC,macOS,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,2,activo
+PC,Dell,Optiplex 5070,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,HP,ProDesk 400 G5,Linux,Intel B360,Intel i5-8600,8GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable HDMI,3,activo
+PC,Acer,Veriton X,Windows,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable VGA,3,activo
+PC,Lenovo,ThinkCentre M710,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,Asus,ASPIRE XC,Windows,Intel H310,Intel i5-9600,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,3,activo
+PC,Dell,Optiplex 3080,Windows,Intel H410,Intel i5-10400,8GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,HP,EliteDesk 800,Linux,Intel B360,Intel i5-9600,16GB,1TB,AMD Radeon,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,Acer,Veriton,macOS,Intel H310,Intel i3-9100,4GB,500GB,Intel UHD,si,no,si,si,si,si,si,si,Cable HDMI,3,activo
+PC,Lenovo,ThinkCentre,Windows,Intel H110,Intel i5-7400,8GB,1TB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,Asus,ASPIRE XC,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,3,activo
+PC,Dell,Optiplex 5070,Linux,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,4,activo
+PC,HP,EliteDesk 800,Linux,Intel B250,Intel i7-7700,16GB,1TB,NVIDIA,si,si,si,si,si,si,si,si,Cable HDMI,4,activo
+Laptop,Acer,TravelMate,Windows,Intel B360,Intel i3-8100,4GB,256GB,AMD Radeon,si,no,si,si,si,no,si,si,Cable USB,4,activo
+Tablet,Lenovo,Tab M10,Otro,MT6765,Quad-core 2.3GHz,3GB,32GB,PowerVR,si,no,si,no,no,no,no,si,Cable USB,1,activo
+Impresora,Brother,HL-L2370DW,Windows,BCM5325,ARM Cortex-A9,1GB,128MB,Integrated,si,no,no,no,no,no,no,no,Cable USB,4,activo
+PC,Dell,Optiplex 5070,Linux,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,4,activo
+Laptop,HP,ProBook 450,macOS,Intel H310,Intel i5-8350U,8GB,512GB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,4,activo
+PC,Lenovo,ThinkCentre M920,Windows,Intel Q370,Intel i5-9600,16GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,4,activo
+Tablet,Samsung,Galaxy Tab S6,Otro,Exynos 9611,Octa-core 2.3GHz,6GB,64GB,Mali-G76,si,no,no,no,no,no,si,si,Cable USB,4,activo
+Impresora,Epson,ECOTank L3150,Windows,Unknown,Unknown,Unknown,Unknown,Unknown,si,si,si,si,si,si,si,si,Cable USB,4,activo
+PC,Dell,Optiplex 3070,Windows,Intel B460,Intel i5-10400,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,5,activo
+PC,HP,EliteDesk 800,macOS,Intel B250,Intel i7-7700,16GB,1TB,NVIDIA,si,si,si,si,si,si,si,si,Cable HDMI,5,activo
+Laptop,Acer,TravelMate,Windows,Intel B360,Intel i3-8100,4GB,256GB,AMD Radeon,si,no,si,si,si,no,si,si,Cable USB,5,activo
+Tablet,Lenovo,Tab M10,Otro,MT6765,Quad-core 2.3GHz,3GB,32GB,PowerVR,si,no,si,no,no,no,no,si,Cable USB,5,activo
+Impresora,Brother,HL-L2370DW,Windows,BCM5325,ARM Cortex-A9,1GB,128MB,Integrated,si,no,no,no,no,no,no,no,Cable USB,5,activo
+PC,Dell,Optiplex 3070,Windows,Intel B460,Intel i5-10400,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,5,activo
+Laptop,HP,ProBook 450,Windows,Intel H310,Intel i5-8350U,8GB,512GB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,5,activo
+PC,Lenovo,ThinkCentre M920,Windows,Intel Q370,Intel i5-9600,16GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,5,activo
+Tablet,Samsung,Galaxy Tab S6,Otro,Exynos 9611,Octa-core 2.3GHz,6GB,64GB,Mali-G76,si,no,no,no,no,no,si,si,Cable USB,5,activo
+Impresora,Epson,ECOTank L3150,Windows,Unknown,Unknown,Unknown,Unknown,Unknown,si,si,si,si,si,si,si,si,Cable USB,5,activo
+PC,Dell,Optiplex 5070,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,6,activo
+PC,HP,EliteDesk 800,Linux,Intel B250,Intel i7-7700,16GB,1TB,NVIDIA,si,si,si,si,si,si,si,si,Cable HDMI,6,activo
+Laptop,Acer,TravelMate,macOS,Intel B360,Intel i3-8100,4GB,256GB,AMD Radeon,si,no,si,si,si,no,si,si,Cable USB,6,activo
+Tablet,Lenovo,Tab M10,Otro,MT6765,Quad-core 2.3GHz,3GB,32GB,PowerVR,si,no,si,no,no,no,no,si,Cable USB,6,activo
+Impresora,Brother,HL-L2370DW,Windows,BCM5325,ARM Cortex-A9,1GB,128MB,Integrated,si,no,no,no,no,no,no,no,Cable USB,6,activo
+PC,Dell,Optiplex 5070,Windows,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,6,activo
+Laptop,HP,ProBook 450,Windows,Intel H310,Intel i5-8350U,8GB,512GB,Intel UHD,si,si,si,si,si,si,si,si,Cable HDMI,6,activo
+PC,Lenovo,ThinkCentre M920,Windows,Intel Q370,Intel i5-9600,16GB,1TB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,6,activo
+Tablet,Samsung,Galaxy Tab S6,Otro,Exynos 9611,Octa-core 2.3GHz,6GB,64GB,Mali-G76,si,no,no,no,no,no,si,si,Cable USB,6,activo
+Impresora,Epson,ECOTank L3150,Windows,Unknown,Unknown,Unknown,Unknown,Unknown,si,si,si,si,si,si,si,si,Cable USB,6,activo
+PC,Dell,Optiplex 5070,macOS,Intel H310,Intel i5-9500,8GB,500GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,HP,ProDesk 600,Linux,Intel B460,Intel i3-10100,4GB,256GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,Lenovo,ThinkCentre M720,macOS,Intel B360,Intel i5-8500,8GB,500GB,NVIDIA GTX 1050,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+Laptop,Acer,Aspire 5,Windows,Intel Z390,Intel i7-9700,16GB,1TB,NVIDIA GTX 1650,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+Laptop,Asus,ZenBook Flip 14,Windows,Intel Z490,Intel i5-10600H,8GB,512GB,NVIDIA GTX 1660 Ti,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+PC,Dell,Optiplex 3080,Windows,Intel B460,Intel i3-10100,4GB,256GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+Tablet,Apple,iPad Air,macOS,Apple A14,Apple M1,8GB,256GB,integrada,si,si,si,si,si,si,si,si,Cable Lightning,7,activo
+Tablet,Samsung,Tab S6,Otro,Qualcomm SDM855,Snapdragon 855,6GB,128GB,integrada,si,si,si,si,si,si,si,si,Cable USB-C,7,activo
+PC,HP,ProDesk 600,Windows,Intel H61,Intel i5-3470,8GB,500GB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,Lenovo,ThinkCentre M710,Windows,Intel H110,Intel i5-6500,8GB,500GB,AMD Radeon,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+PC,HP,ProDesk 600,Linux,Intel B460,Intel i3-10100,4GB,256GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,Lenovo,ThinkCentre M720,macOS,Intel B360,Intel i5-8500,8GB,500GB,NVIDIA GTX 1050,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+Laptop,Acer,Aspire 5,Windows,Intel Z390,Intel i7-9700,16GB,1TB,NVIDIA GTX 1650,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+Laptop,Asus,ZenBook Flip 14,Windows,Intel Z490,Intel i5-10600H,8GB,512GB,NVIDIA GTX 1660 Ti,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+PC,Dell,Optiplex 3080,Linux,Intel B460,Intel i3-10100,4GB,256GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+Tablet,Apple,iPad Air,macOS,Apple A14,Apple M1,8GB,256GB,integrada,si,si,si,si,si,si,si,si,Cable Lightning,7,activo
+Tablet,Samsung,Tab S6,Otro,Qualcomm SDM855,Snapdragon 855,6GB,128GB,integrada,si,si,si,si,si,si,si,si,Cable USB-C,7,activo
+PC,HP,ProDesk 600,macOS,Intel H61,Intel i5-3470,8GB,500GB,Intel HD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,Lenovo,ThinkCentre M710,Windows,Intel H110,Intel i5-6500,8GB,500GB,AMD Radeon,si,si,si,si,si,si,si,si,Cable HDMI,7,activo
+PC,HP,ProDesk 600,Linux,Intel B460,Intel i3-10100,4GB,256GB,Intel UHD,si,si,si,si,si,si,si,si,Cable VGA,7,activo
+PC,Lenovo,ThinkCentre M720,Linux,Intel B360,Intel i5-8500,8GB,500GB,NVIDIA GTX 1050,si,si,si,si,si,si,si,si,Cable HDMI,7,activo

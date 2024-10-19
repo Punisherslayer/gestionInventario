@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Dar de Alta Hardware</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/hardware/alta" method="POST">
+        <label for="tipo_componente">Tipo de Componente:</label>
+        <select name="tipo_componente" required>
+            <option value="">Seleccione un Tipo de Componente</option>
+            <option value="Procesador">Procesador</option>
+            <option value="RAM">RAM</option>
+            <option value="Disco_Duro">Disco Duro</option>
+            <option value="Tarjeta_Grafica">Tarjeta Gráfica</option>
+            <option value="Fuente_Alimentacion">Fuente de Alimentación</option>
+            <option value="Otro">Otro</option>
+        </select>
+        <br>
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca">
+        <br>
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo">
+        <br>
+        <label for="especificaciones">Especificaciones:</label>
+        <textarea name="especificaciones"></textarea>
+        <br>
+        <label for="estado">Estado:</label>
+        <select name="estado" required>
+            <option value="">Seleccione el Estado del Hardware</option>
+            <option value="disponible">Disponible</option>
+            <option value="en uso">En uso</option>
+            <option value="en reparación">En reparación</option>
+            <option value="desechado">Desechado</option>
+        </select>
+        <br>
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion" required>
+            <option value="">Seleccione una Ubicación</option>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }); %>
+        </select>
+        <br>
+        <button type="submit">Registrar Hardware</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

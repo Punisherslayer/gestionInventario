@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alta Ubicación</title>
+    <link rel="stylesheet" href="/css/alta.css">
+</head>
+<body>
+    <h1>Dar de Alta Ubicación</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+    
+    <form action="/ubicaciones/alta" method="POST">
+        <label for="nombre_ubicacion">Nombre de Ubicación:</label>
+        <input type="text" name="nombre_ubicacion" required>
+        
+        <label for="departamento_responsable">Departamento Responsable:</label>
+        <input type="text" name="departamento_responsable" required>
+        
+        <button type="submit">Registrar Ubicación</button>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Cancelar</button>
+    </form>
+</body>
+</html>

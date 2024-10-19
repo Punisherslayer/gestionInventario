@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Incidencias de Hardware</title>
+    <link rel="stylesheet" href="/css/listar.css">
+</head>
+<body>
+    <h1>Lista de Incidencias de Hardware</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+
+    <!-- Filtros -->
+    <form action="/incidencias_hardware/listar" method="GET">
+        <label for="fecha_reporte">Fecha de Reporte:</label>
+        <input type="date" name="fecha_reporte" value="<%= filters.fecha_reporte %>">
+
+        <label for="estado">Estado:</label>
+        <select name="estado">
+            <option value="">Seleccione Estado</option>
+            <option value="abierta" <%= filters.estado === 'abierta' ? 'selected' : '' %>>Abierta</option>
+            <option value="en progreso" <%= filters.estado === 'en progreso' ? 'selected' : '' %>>En Progreso</option>
+            <option value="cerrada" <%= filters.estado === 'cerrada' ? 'selected' : '' %>>Cerrada</option>
+            <option value="cancelada" <%= filters.estado === 'cancelada' ? 'selected' : '' %>>Cancelada</option>
+        </select>
+
+        <label for="prioridad">Prioridad:</label>
+        <select name="prioridad">
+            <option value="">Seleccione Prioridad</option>
+            <option value="baja" <%= filters.prioridad === 'baja' ? 'selected' : '' %>>Baja</option>
+            <option value="media" <%= filters.prioridad === 'media' ? 'selected' : '' %>>Media</option>
+            <option value="alta" <%= filters.prioridad === 'alta' ? 'selected' : '' %>>Alta</option>
+        </select>
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion">
+            <option value="">Seleccione Ubicación</option>
+            <% ubicaciones.forEach(ubicacion => { %>
+                <option value="<%= ubicacion.id_ubicacion %>" <%= filters.id_ubicacion == ubicacion.id_ubicacion ? 'selected' : '' %>>
+                    <%= ubicacion.nombre_ubicacion %>
+                </option>
+            <% }) %>
+        </select>
+
+        <label for="fecha_creacion">Fecha de Creación:</label>
+        <input type="date" name="fecha_creacion" value="<%= filters.fecha_creacion %>">
+
+        <label for="fecha_modificacion">Fecha de Modificación:</label>
+        <input type="date" name="fecha_modificacion" value="<%= filters.fecha_modificacion %>">
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabla de Incidencias Hardware -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción Incidencia</th>
+                <th>Fecha de Reporte</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Hardware</th>
+                <th>Usuario</th>
+                <th>Ubicación</th>
+                <th>Fecha de Creación</th>
+                <th>Fecha de Modificación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% incidencias.forEach(function(incidencia) { %>
+            <tr>
+                <td><%= incidencia.id_incidencia %></td>
+                <td><%= incidencia.descripcion_incidencia %></td>
+                <td><%= new Date(incidencia.fecha_reporte).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= incidencia.estado %></td>
+                <td><%= incidencia.prioridad %></td>
+                <td><%= incidencia.nombre_hardware %></td>
+                <td><%= incidencia.nombre_usuario %></td>
+                <td><%= incidencia.nombre_ubicacion %></td>
+                <td><%= new Date(incidencia.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(incidencia.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>                
+                <td>
+                    <form action="/incidencias_hardware/eliminar/<%= incidencia.id_incidencia %>" method="POST">
+                        <button type="submit">Eliminar Incidencia</button>
+                    </form>
+                    
+                    <a href="/incidencias_hardware/actualizar/<%= incidencia.id_incidencia %>">
+                        <button>Actualizar Incidencia</button>
+                    </a>
+                
+                    <a href="/mantenimiento_hardware/alta?hardware=<%= incidencia.id_hardware %>&ubicacion=<%= incidencia.id_ubicacion %>">
+                        <button>Programar Mantenimiento</button>
+                    </a>
+                
+                    <a href="/mantenimiento_hardware/actualizar/<%= incidencia.id_incidencia %>"><button>Actualizar Mantenimiento</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <button class="button-rdc" onclick="window.location.href='/incidencias_hardware/alta'">Dar de Alta Incidencia</button>
+    <button class="button-rdc" onclick="window.location.href='/mantenimiento_hardware/listar'">Ir a Lista de Mantenimiento Hardware</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Volver a Lista de Ubicaciones</button>
+</body>
+</html>

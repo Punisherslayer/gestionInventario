@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Incidencias de Equipos</title>
+    <link rel="stylesheet" href="/css/listar.css">
+</head>
+<body>
+    <h1>Lista de Incidencias de Equipos</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+
+    <!-- Filtros -->
+    <form action="/incidencias_equipos/listar" method="GET">
+        <label for="fecha_reporte">Fecha de Reporte:</label>
+        <input type="date" name="fecha_reporte">
+
+        <label for="estado">Estado:</label>
+        <select name="estado">
+            <option value="">Seleccione Estado</option>
+            <option value="abierta">Abierta</option>
+            <option value="en progreso">En Progreso</option>
+            <option value="cerrada">Cerrada</option>
+            <option value="cancelada">Cancelada</option>
+        </select>
+
+        <label for="prioridad">Prioridad:</label>
+        <select name="prioridad">
+            <option value="">Seleccione Prioridad</option>
+            <option value="baja">Baja</option>
+            <option value="media">Media</option>
+            <option value="alta">Alta</option>
+        </select>
+
+        <label for="id_ubicacion">Ubicación:</label>
+        <select name="id_ubicacion">
+            <option value="">Seleccione Ubicación</option>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+                <option value="<%= ubicacion.id_ubicacion %>"><%= ubicacion.nombre_ubicacion %></option>
+            <% }) %>
+        </select>
+
+        <label for="fecha_creacion">Fecha de Creación:</label>
+        <input type="date" name="fecha_creacion">
+
+        <label for="fecha_modificacion">Fecha de Modificación:</label>
+        <input type="date" name="fecha_modificacion">
+
+        <button type="submit">Filtrar</button>
+    </form>
+
+    <!-- Tabla de Incidencias Equipos -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Descripción Incidencia</th>
+                <th>Fecha de Reporte</th>
+                <th>Estado</th>
+                <th>Prioridad</th>
+                <th>Equipo</th>
+                <th>Usuario</th>
+                <th>Ubicación</th>
+                <th>Fecha de Creación</th>
+                <th>Fecha de Modificación</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% incidencias.forEach(function(incidencia) { %>
+            <tr>
+                <td><%= incidencia.id_incidencia %></td>
+                <td><%= incidencia.descripcion_incidencia %></td>
+                <td><%= new Date(incidencia.fecha_reporte).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= incidencia.estado %></td>
+                <td><%= incidencia.prioridad %></td>
+                <td><%= incidencia.nombre_equipo %></td>
+                <td><%= incidencia.nombre_usuario %></td>
+                <td><%= incidencia.nombre_ubicacion %></td>
+                <td><%= new Date(incidencia.fecha_creacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>
+                <td><%= new Date(incidencia.fecha_modificacion).toLocaleString('es-ES', { timeZone: 'UTC', hour12: false }) %></td>                
+                <td>
+                    <form action="/incidencias_equipos/eliminar/<%= incidencia.id_incidencia %>" method="POST">
+                        <button type="submit">Eliminar Incidencia</button>
+                    </form>
+                    
+                    <a href="/incidencias_equipos/actualizar/<%= incidencia.id_incidencia %>">
+                        <button>Actualizar Incidencia</button>
+                    </a>
+                
+                    <a href="/mantenimiento_equipos/alta?equipo=<%= incidencia.id_equipo %>&ubicacion=<%= incidencia.id_ubicacion %>">
+                        <button>Programar Mantenimiento</button>
+                    </a>
+                
+                    <a href="/mantenimiento_equipos/actualizar/<%= incidencia.id_incidencia %>"><button>Actualizar Mantenimiento</button></a>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+    <button class="button-rdc" onclick="window.location.href='/incidencias_equipos/alta'">Dar de Alta Incidencia</button>
+    <button class="button-rdc" onclick="window.location.href='/mantenimiento_equipos/listar'">Ir a Lista de Mantenimiento de Equipos</button>
+    <button class="button-rdc" onclick="window.location.href='/ubicaciones/listar'">Volver a Lista de Ubicaciones</button>
+
+    <% if (messages.success) { %>
+        <script>
+            alert('<%= messages.success %>');
+        </script>
+    <% } %>
+</body>
+</html>

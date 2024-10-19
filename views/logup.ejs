@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/logup.css">
+    <title>Inicio de Sesión / Registro</title>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Mostrar el mensaje flash si existe -->
+        <% if (messages.error_msg) { %>
+            <div class="alert alert-danger"><%= messages.error_msg %></div>
+        <% } %>
+        <% if (messages.success_msg) { %>
+            <div class="alert alert-success"><%= messages.success_msg %></div>
+        <% } %>
+
+        <h1>Inicio de Sesión / Registro</h1>
+        
+        <!-- Formulario para iniciar sesión -->
+        <form action="/login" method="post">
+            <h2>Iniciar Sesión</h2>
+            <input type="email" name="email" required placeholder="Email">
+            <input type="password" name="password" required placeholder="Contraseña">
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+
+        <!-- Formulario para registrarse -->
+        <form action="/signup" method="post">
+            <h2>Registro</h2>
+            <input type="text" name="username" required placeholder="Nombre de Usuario">
+            <input type="email" name="email" required placeholder="Email">
+            <input type="password" name="password" required placeholder="Contraseña">
+            <button type="submit">Registrarse</button>
+        </form>
+    </div>
+</body>
+</html>

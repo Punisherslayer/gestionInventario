@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Ubicaciones</title>
+    <link rel="stylesheet" href="/css/listar.css">
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+    
+        .modal-content {
+            background-color: #f0f8ff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+            max-height: 80%;
+            overflow-y: auto;
+        }
+    
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+    
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+    
+        th, td {
+            border: 1px solid #494949;
+            padding: 8px;
+            text-align: left;
+        }
+    
+        th {
+            background-color: #4a90e2;
+            color: white;
+        }
+    
+        .modal-table {
+            background-color: #f0f8ff;
+            border: 1px solid #ddd;
+        }
+    
+        .modal-table th, .modal-table td {
+            border: 1px solid #bbb;
+            padding: 10px;
+        }
+    
+        .modal-table tr:nth-child(even) {
+            background-color: #e6f7ff;
+        }
+    
+        .section {
+            margin-bottom: 20px;
+        }
+    
+        .section h2 {
+            margin-bottom: 10px;
+            color: #333;
+            font-size: 1.2em;
+        }
+    
+        /* Button styling */
+        .button-rdc {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+    
+        .button-rdc:hover {
+            background-color: #0056b3;
+        }
+    
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 90%;
+                padding: 15px;
+            }
+    
+            .close {
+                font-size: 24px;
+            }
+    
+            table {
+                font-size: 14px;
+            }
+    
+            th, td {
+                padding: 6px;
+            }
+    
+            .button-rdc {
+                padding: 8px 10px;
+            }
+    
+            .section h2 {
+                font-size: 1.1em;
+            }
+        }
+    
+        @media (max-width: 480px) {
+            .modal-content {
+                width: 95%;
+                padding: 10px;
+            }
+    
+            .close {
+                font-size: 20px;
+            }
+    
+            table {
+                font-size: 12px;
+            }
+    
+            th, td {
+                padding: 5px;
+            }
+    
+            .button-rdc {
+                padding: 6px 8px;
+            }
+        }
+    </style>
+    
+</head>
+<body>
+    <h1>Lista de Ubicaciones</h1>
+
+    <% if (messages.error_msg) { %> 
+        <div class="alert alert-danger"><%= messages.error_msg %></div>
+    <% } %>
+    <% if (messages.success_msg) { %> 
+        <div class="alert alert-success"><%= messages.success_msg %></div>
+    <% } %>
+
+    <table>
+
+        <% if (messages.success) { %>
+            <script>
+                alert('<%= messages.success %>');
+            </script>
+        <% } %>
+        
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre Ubicación</th>
+                <th>Departamento Responsable</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% ubicaciones.forEach(function(ubicacion) { %>
+            <tr>
+                <td><%= ubicacion.id_ubicacion %></td>
+                <td><%= ubicacion.nombre_ubicacion %></td>
+                <td><%= ubicacion.departamento_responsable %></td>
+                <td>
+                    <form action="/ubicaciones/eliminar/<%= ubicacion.id_ubicacion %>" method="POST" style="display:inline;">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                    <a href="/ubicaciones/actualizar/<%= ubicacion.id_ubicacion %>"><button>Actualizar</button></a>
+                    <button onclick="showEquipment('<%= ubicacion.id_ubicacion %>', '<%= ubicacion.nombre_ubicacion %>')">Ver Equipos</button>
+                    <button onclick="showHardware('<%= ubicacion.id_ubicacion %>', '<%= ubicacion.nombre_ubicacion %>')">Ver Hardware</button>
+                </td>
+            </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+<!-- El modal para mostrar equipos -->
+<div id="equipmentModal" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal()">&times;</span>
+        <h2 id="modalTitle">Equipos en Ubicación</h2>
+        <div id="equipmentList" class="modal-table"></div>
+        <button id="addEquipmentBtn" style="margin-top: 20px;" onclick="window.location.href='/equipos/alta';">Dar de Alta Equipo</button>
+        
+                <!-- Formulario para subir archivo CSV/Excel -->
+                <form action="/equipos/upload" method="POST" enctype="multipart/form-data" style="margin-top: 20px;">
+                    <label for="file">Subir archivo de Equipos (Excel/CSV):</label>
+                    <input type="file" name="file" accept=".csv, .xlsx" required>
+                    <button type="submit">Subir</button>
+                </form>
+    </div>
+</div>
+
+    <!-- El modal para mostrar hardware -->
+    <div id="hardwareModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeHardwareModal()">&times;</span>
+            <h2 id="hardwareModalTitle">Hardware en Ubicación</h2>
+            <div id="hardwareList" class="modal-table"></div>
+            <button id="addHardwBtn" style="margin-top: 20px;" onclick="window.location.href='/hardware/alta';">Dar de Alta Hardware</button>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Opciones de Ubicaciones</h2>
+        <button class="button-rdc" onclick="window.location.href='/ubicaciones/alta'">Dar de Alta Ubicaciones</button>
+        <button class="button-rdc" onclick="window.location.href='/index'">Volver a la Página Principal</button>
+      </div>
+    
+    <div class="section">
+        <h2>Listado de Secciones</h2>
+        <button class="button-rdc" onclick="window.location.href='/equipos/listar'">Ir a la Lista de Equipos</button>
+        <button class="button-rdc" onclick="window.location.href='/hardware/listar'">Ir a la Lista de Hardware</button>
+        <button class="button-rdc" onclick="window.location.href='/software/listar'">Ir a la Lista de Software</button>
+      </div>
+      
+      <div class="section">
+        <h2>Listado de Incidencias</h2>
+        <button class="button-rdc" onclick="window.location.href='/incidencias_equipos/listar'">Ir a la Lista de Incidencias de Equipos</button>
+        <button class="button-rdc" onclick="window.location.href='/incidencias_hardware/listar'">Ir a la Lista de Incidencias de Hardware</button>
+      </div>
+      
+      <div class="section">
+        <h2>Listado de Mantenimientos</h2>
+        <button class="button-rdc" onclick="window.location.href='/mantenimiento_equipos/listar'">Ir a la Lista de Mantenimiento de Equipos</button>
+        <button class="button-rdc" onclick="window.location.href='/mantenimiento_hardware/listar'">Ir a la Lista de Mantenimiento de Hardware</button>
+      </div>        
+
+    <script>
+        // Función para mostrar el modal de equipos
+        function showEquipment(ubicacionId, ubicacionNombre) {
+            // Cambiar el título del modal
+            document.getElementById('modalTitle').innerText = 'Equipos en ' + ubicacionNombre;
+    
+            // Obtener los equipos de esta ubicación
+            fetch(`/ubicaciones/${ubicacionId}/equipos`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta de la red');
+                    }
+                    return response.json();
+                })
+                .then(equipos => {
+                    const equipmentList = document.getElementById('equipmentList');
+                    equipmentList.innerHTML = '';
+    
+                    if (equipos.length > 0) {
+                        const table = document.createElement('table');
+                        const headerRow = `<tr>
+                            <th>Tipo</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Sistema Operativo</th>
+                            <th>Estado</th>
+                            <th>Placa Base</th>
+                            <th>Procesador</th>
+                            <th>Memoria RAM</th>
+                            <th>Disco Duro</th>
+                            <th>Tarjeta Gráfica</th>
+                            <th>Sistema Refrigeración</th>
+                            <th>Unidad Óptica</th>
+                            <th>Tarjeta Sonido</th>
+                            <th>Tarjeta Red</th>
+                            <th>Teclado</th>
+                            <th>Ratón</th>
+                            <th>Monitor</th>
+                            <th>Altavoces</th>
+                            <th>Cables y Conectores</th>
+                            <th>Acciones</th>
+                        </tr>`;
+                        table.innerHTML = headerRow;
+                        table.className = 'modal-table';
+    
+                        equipos.forEach(equipo => {
+                            const row = `<tr id="row-equipo-${equipo.id_equipo}">
+                                <td>${equipo.tipo}</td>
+                                <td>${equipo.marca}</td>
+                                <td>${equipo.modelo}</td>
+                                <td>${equipo.sistema_operativo}</td>
+                                <td>${equipo.estado}</td>
+                                <td>${equipo.placa_base}</td>
+                                <td>${equipo.procesador}</td>
+                                <td>${equipo.memoria_ram}</td>
+                                <td>${equipo.disco_duro}</td>
+                                <td>${equipo.tarjeta_grafica}</td>
+                                <td>${equipo.sistema_refrigeracion}</td>
+                                <td>${equipo.unidad_optica}</td>
+                                <td>${equipo.tarjeta_sonido}</td>
+                                <td>${equipo.tarjeta_red}</td>
+                                <td>${equipo.teclado}</td>
+                                <td>${equipo.raton}</td>
+                                <td>${equipo.monitor}</td>
+                                <td>${equipo.altavoces}</td>
+                                <td>${equipo.cables_conectores}</td>
+                                <td>
+                                    <a href="/equipos/actualizar/${equipo.id_equipo}"><button>Actualizar</button></a>
+                                    <a href="/incidencias_equipos/alta?equipo_id=${equipo.id_equipo}"><button>Abrir Incidencia</button></a>
+                                    <button onclick="deleteEquipo(${equipo.id_equipo})">Eliminar</button>
+                                </td>
+                            </tr>`;
+                            table.innerHTML += row;
+                        });
+    
+                        equipmentList.appendChild(table);
+                    } else {
+                        equipmentList.innerHTML = '<p>No hay equipos en esta ubicación.</p>';
+                    }
+    
+                    document.getElementById('equipmentModal').style.display = 'block';
+                })
+                .catch(error => console.error('Error al obtener los equipos:', error));
+        }
+    
+        // Función para eliminar un equipo sin redirigir
+        function deleteEquipo(equipoId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este equipo?')) {
+                fetch(`/equipos/eliminar/${equipoId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ _method: 'DELETE' })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        
+                        const row = document.getElementById(`row-equipo-${equipoId}`);
+                        if (row) {
+                            row.remove();
+                        }
+                    } else {
+                        alert('Error al eliminar el equipo');
+                    }
+                })
+                .catch(error => console.error('Error al eliminar el equipo:', error));
+            }
+        }
+    
+        // Función para cerrar el modal de equipos
+        function closeModal() {
+            document.getElementById('equipmentModal').style.display = 'none';
+        }
+    
+        // Función para mostrar el modal de hardware
+        function showHardware(ubicacionId, ubicacionNombre) {
+            document.getElementById('hardwareModalTitle').innerText = 'Hardware en ' + ubicacionNombre;
+    
+            fetch(`/ubicaciones/${ubicacionId}/hardware`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Error en la respuesta de la red');
+                    }
+                    return response.json();
+                })
+                .then(hardware => {
+                    const hardwareList = document.getElementById('hardwareList');
+                    hardwareList.innerHTML = '';
+    
+                    if (hardware.length > 0) {
+                        const table = document.createElement('table');
+                        const headerRow = `<tr>
+                            <th>Tipo de Componente</th>
+                            <th>Marca</th>
+                            <th>Modelo</th>
+                            <th>Especificaciones</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>`;
+                        table.innerHTML = headerRow;
+                        table.className = 'modal-table';
+    
+                        hardware.forEach(item => {
+                            const row = `<tr id="row-hardware-${item.id_hardware}">
+                                <td>${item.tipo_componente}</td>
+                                <td>${item.marca}</td>
+                                <td>${item.modelo}</td>
+                                <td>${item.especificaciones}</td>
+                                <td>${item.estado}</td>
+                                <td>
+                                    <a href="/hardware/actualizar/${item.id_hardware}"><button>Actualizar</button></a>
+                                    <a href="/incidencias_hardware/alta?hardware_id=${item.id_hardware}"><button>Abrir Incidencia</button></a>
+                                    <button onclick="deleteHardware(${item.id_hardware})">Eliminar</button>
+                                </td>
+                            </tr>`;
+                            table.innerHTML += row;
+                        });
+    
+                        hardwareList.appendChild(table);
+                    } else {
+                        hardwareList.innerHTML = '<p>No hay hardware en esta ubicación.</p>';
+                    }
+    
+                    document.getElementById('hardwareModal').style.display = 'block';
+                })
+                .catch(error => console.error('Error al obtener el hardware:', error));
+        }
+    
+        // Función para eliminar hardware sin redirigir
+        function deleteHardware(hardwareId) {
+            if (confirm('¿Estás seguro de que quieres eliminar este hardware?')) {
+                fetch(`/hardware/eliminar/${hardwareId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ _method: 'DELETE' })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        const row = document.getElementById(`row-hardware-${hardwareId}`);
+                        if (row) {
+                            row.remove();
+                        }
+                    } else {
+                        alert('Error al eliminar el hardware');
+                    }
+                })
+                .catch(error => console.error('Error al eliminar el hardware:', error));
+            }
+        }
+    
+        // Función para cerrar el modal de hardware
+        function closeHardwareModal() {
+            document.getElementById('hardwareModal').style.display = 'none';
+        }
+    
+        // Cerrar el modal al hacer clic fuera del contenido
+        window.onclick = function(event) {
+            const equipmentModal = document.getElementById('equipmentModal');
+            const hardwareModal = document.getElementById('hardwareModal');
+            if (event.target === equipmentModal) {
+                closeModal();
+            } else if (event.target === hardwareModal) {
+                closeHardwareModal();
+            }
+        }
+    </script>
+    
+</body>
+</html>
