@@ -20,7 +20,7 @@
 # Ignorar archivos SQL de base de datos (la carpeta sql hay que crearla en public)
     *.sql
 
-# Ignorar archivos Excel de datos (la carpeta public hay que crearla en raiz)
+# Ignorar archivos Excel de datos (la carpeta uploads hay que crearla en raiz)
     *.csv
     *.xls
     *.xlsx
