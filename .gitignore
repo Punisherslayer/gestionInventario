@@ -14,13 +14,13 @@
     .DS_Store
     Thumbs.db
 
-# Ignorar archivos de bloqueos de paquetes (opcional)
+# Ignorar archivos de bloqueos de paquetes
     package-lock.json
 
-# Ignorar archivos SQL de base de datos (opcional)
+# Ignorar archivos SQL de base de datos (la carpeta sql hay que crearla en public)
     *.sql
 
-# Ignorar archivos Excel de datos
+# Ignorar archivos Excel de datos (la carpeta public hay que crearla en raiz)
     *.csv
     *.xls
     *.xlsx
