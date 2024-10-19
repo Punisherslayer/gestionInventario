@@ -88,16 +88,16 @@ Este proyecto está bajo la licencia MIT. Para más detalles, consulta el archiv
 
 ## Notas Adicionales
 
-Usuarios y Roles: El sistema cuenta con diferentes roles para usuarios, como administrador y usuario estándar. El administrador tiene acceso completo a todas las funcionalidades, mientras que los usuarios estándar tienen un acceso limitado a las acciones de consulta y gestión de su propio perfil.
+- **Usuarios y Roles:** El sistema cuenta con diferentes roles para usuarios, como administrador y usuario estándar. El administrador tiene acceso completo a todas las funcionalidades, mientras que los usuarios estándar tienen un acceso limitado a las acciones de consulta y gestión de su propio perfil.
 
-Importación de Datos: El proyecto soporta la importación de datos a través de archivos CSV y XLS para el alta masiva de equipos, lo que permite agilizar la incorporación de información al sistema.
+- **Importación de Datos:** El proyecto soporta la importación de datos a través de archivos CSV y XLS para el alta masiva de equipos, lo que permite agilizar la incorporación de información al sistema.
 
-Seguridad: Se implementa autenticación mediante sesiones y encriptación de contraseñas usando la librería bcrypt. Además, las rutas están protegidas con middleware de autorización que verifica los roles de los usuarios.
+- **Seguridad:** Se implementa autenticación mediante sesiones y encriptación de contraseñas usando la librería bcrypt. Además, las rutas están protegidas con middleware de autorización que verifica los roles de los usuarios.
 
-Compatibilidad Móvil: La aplicación tiene un diseño responsivo básico, que permite su uso en dispositivos móviles. Aún se pueden realizar mejoras para optimizar la experiencia móvil.
+- **Compatibilidad Móvil:** La aplicación tiene un diseño responsivo básico, que permite su uso en dispositivos móviles. Aún se pueden realizar mejoras para optimizar la experiencia móvil.
 
-Archivos no incluidos: Los archivos necesarios para la base de datos (inventario.sql) y la carga de archivos (uploads/) deben ser creados o configurados manualmente antes de ejecutar el sistema. Asegúrate de tener el entorno adecuado para la base de datos.
+- **Archivos no incluidos:** Los archivos necesarios para la base de datos (inventario.sql) y la carga de archivos (uploads/) deben ser creados o configurados manualmente antes de ejecutar el sistema. Asegúrate de tener el entorno adecuado para la base de datos.
 
-Dependencias y Módulos: Este proyecto utiliza módulos populares de Node.js como express, mysql2, multer, xlsx, entre otros. Es importante asegurarse de que todas las dependencias estén correctamente instaladas y actualizadas para el buen funcionamiento de la aplicación.
+- **Dependencias y Módulos:** Este proyecto utiliza módulos populares de Node.js como express, mysql2, multer, xlsx, entre otros. Es importante asegurarse de que todas las dependencias estén correctamente instaladas y actualizadas para el buen funcionamiento de la aplicación.
 
-Modificaciones Futuras: Está planificado mejorar la interfaz móvil, optimizar la carga de grandes cantidades de datos y añadir nuevas funcionalidades como la exportación de inventario a formatos como PDF o Excel.
+- **Modificaciones Futuras:** Está planificado mejorar la interfaz móvil, optimizar la carga de grandes cantidades de datos y añadir nuevas funcionalidades como la exportación de inventario a formatos como PDF o Excel.
