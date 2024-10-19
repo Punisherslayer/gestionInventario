@@ -97,7 +97,6 @@ Este proyecto está bajo la licencia MIT. Para más detalles, consulta el archiv
 - **Compatibilidad Móvil:** La aplicación tiene un diseño responsivo básico, que permite su uso en dispositivos móviles. Aún se pueden realizar mejoras para optimizar la experiencia móvil.
 
 - **Archivos no incluidos:** Los archivos necesarios para la base de datos (inventario.sql) y la carga de archivos (uploads/) deben ser creados o configurados manualmente antes de ejecutar el sistema. Asegúrate de tener el entorno adecuado para la base de datos.
-
 - **Dependencias y Módulos:** Este proyecto utiliza módulos populares de Node.js como express, mysql2, multer, xlsx, entre otros. Es importante asegurarse de que todas las dependencias estén correctamente instaladas y actualizadas para el buen funcionamiento de la aplicación.
 
 - **Modificaciones Futuras:** Está planificado mejorar la interfaz móvil, optimizar la carga de grandes cantidades de datos y añadir nuevas funcionalidades como la exportación de inventario a formatos como PDF o Excel.
